@@ -6,7 +6,9 @@ import PokemonsCartes from './components/PokemonsCartes';
 function App() {
 
   const [allPokemons, setAllPokemons] = useState([])
-  const [loadMore, setLoadMore] = useState('http://pokeapi.co/api/v2/pokemon?limit=100offset=0')
+  const [loadMore, setLoadMore] = useState('http://pokeapi.co/api/v2/pokemon?limit=100&offset=0')
+ /*  const [text, setText] = useState("")
+  const [filter, setFilter] = useState() */
 
   const getAllPokemons = async () => {
     const res = await fetch(loadMore)
@@ -22,10 +24,18 @@ function App() {
         const data = await res.json()
 
         setAllPokemons(currentList => [...currentList, data])
-        //allPokemons.push(data)
-        //await console.log(allPokemons)
+
       })
     }
+
+   /*  const handleChange = (event)=>
+    {
+      const inputVal = event.target.value 
+      setText(inputVal)
+      setFilter(allPokemons.filter((index) =>
+       index.name.toLowerCase().includes(inputVal.toLowerCase())
+      )
+      )} */
 
     createPokemon(data.results)
     //await console.log(allPokemons)
@@ -38,6 +48,7 @@ function App() {
   return (
     <div className="App">
       <h1 className='title'> <img className='pokeball' src={ require('./pokeball.png')} alt="pokeball"/> Pokemons <img className='pokeball' src={ require('./pokeball.png')} alt="pokeball"/></h1>
+{/*       <FilterPokemons handleChange></FilterPokemons> */}
       <div className="Pokemon">
         <div className="AllPokemons">
           {allPokemons.map((pokemon, index) => 

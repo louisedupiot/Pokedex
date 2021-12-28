@@ -75,6 +75,9 @@
   font-weight:400;
 }
 
+.details li {
+  list-style-type: none;
+}
 .rock img{
   background-color: #866e58;
 }

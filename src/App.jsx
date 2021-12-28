@@ -23,12 +23,12 @@ function App() {
 
         setAllPokemons(currentList => [...currentList, data])
         //allPokemons.push(data)
-        await console.log(allPokemons)
+        //await console.log(allPokemons)
       })
     }
 
     createPokemon(data.results)
-    await console.log(allPokemons)
+    //await console.log(allPokemons)
   }
 
   useEffect(() =>{
@@ -45,7 +45,8 @@ function App() {
             id={pokemon.id}  
             name={pokemon.name} 
             image={pokemon.sprites.front_default} 
-            type={pokemon.types[0].type.name} 
+            type={pokemon.types}
+            type2={pokemon.types[0].type.name}
             weight={pokemon.weight} 
             height={pokemon.height} 
             abilities={pokemon.abilities}

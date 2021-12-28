@@ -1,11 +1,12 @@
 //import logo from './logo.svg';
 import { useEffect, useState } from 'react';
 import './App.css'; 
+import PokemonsCartes from './components/PokemonsCartes';
 
 function App() {
 
   const [allPokemons, setAllPokemons] = useState([])
-  const [loadMore, setLoadMore] = useState('http://pokeapi.co/api/v2/pokemon?limit=20&offset=20')
+  const [loadMore, setLoadMore] = useState('http://pokeapi.co/api/v2/pokemon?limit=100offset=0')
 
   const getAllPokemons = async () => {
     const res = await fetch(loadMore)
@@ -36,13 +37,20 @@ function App() {
 
   return (
     <div className="App">
-      <h1> Pokemons </h1>
+      <h1 className='title'> <img className='pokeball' src={ require('./pokeball.png')} alt="pokeball"/> Pokemons <img className='pokeball' src={ require('./pokeball.png')} alt="pokeball"/></h1>
       <div className="Pokemon">
         <div className="AllPokemons">
-
+          {allPokemons.map((pokemon, index) => 
+            <PokemonsCartes key={index} 
+            id={pokemon.id}  
+            name={pokemon.name} 
+            image={pokemon.sprites.front_default} 
+            type={pokemon.types[0].type.name} 
+            weight={pokemon.weight} 
+            height={pokemon.height} 
+            abilities={pokemon.abilities}
+            ></PokemonsCartes>)}
         </div>
-
-      <button className='pokebtn'>Pokemons</button>
 
       </div>
     </div>

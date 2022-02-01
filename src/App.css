@@ -120,3 +120,15 @@
 .steel img{
   background-color: #93abbd;;
 }
+
+.barre input{
+  height: 5%;
+  font-size: x-large;
+  margin: 10px;
+}
+
+label {
+  margin: 10px;
+  font-size: xx-large;
+  color: #fff5d3;
+}

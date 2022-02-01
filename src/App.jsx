@@ -2,14 +2,33 @@
 import { useEffect, useState } from 'react';
 import './App.css'; 
 import PokemonsCartes from './components/PokemonsCartes';
+import Search from './components/Search';
+
 
 function App() {
 
   const [allPokemons, setAllPokemons] = useState([])
   const [loadMore, setLoadMore] = useState('http://pokeapi.co/api/v2/pokemon?limit=100&offset=0')
+  const { search } = window.location;
+    const req = new URLSearchParams(search).get('s');
+    const [searchQuery, setSearchQuery] = useState(req || '');
+const filterPokemons = (allPokemons, req) => {
+    if (!req) {
+        return allPokemons;
+    }
+
+    return allPokemons.filter((pokemon) => {
+        const pokemonName = pokemon.name.toLowerCase();
+        return pokemonName.includes(req);
+    });
+}
+
+    const filteredPokemons = filterPokemons(allPokemons, searchQuery);
  /*  const [text, setText] = useState("")
   const [filter, setFilter] = useState() */
 
+
+  
   const getAllPokemons = async () => {
     const res = await fetch(loadMore)
     const data = await res.json()
@@ -49,9 +68,17 @@ function App() {
     <div className="App">
       <h1 className='title'> <img className='pokeball' src={ require('./pokeball.png')} alt="pokeball"/> Pokemons <img className='pokeball' src={ require('./pokeball.png')} alt="pokeball"/></h1>
 {/*       <FilterPokemons handleChange></FilterPokemons> */}
+      <div className="Recherche"> 
+        <Search
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+            />
+      </div>
+
+
       <div className="Pokemon">
         <div className="AllPokemons">
-          {allPokemons.map((pokemon, index) => 
+          {filteredPokemons.map((pokemon, index) => 
             <PokemonsCartes key={index} 
             id={pokemon.id}  
             name={pokemon.name} 
